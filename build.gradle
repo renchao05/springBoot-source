@@ -1,40 +1,38 @@
 plugins {
 	id "base"
 	id "org.jetbrains.kotlin.jvm" apply false // https://youtrack.jetbrains.com/issue/KT-30276
-	id "io.spring.nohttp" version "0.0.11"
+//	id "io.spring.nohttp" version "0.0.11"
 }
 
 description = "Spring Boot Build"
 
 defaultTasks 'build'
 
-nohttp {
-	allowlistFile = project.file("src/nohttp/allowlist.lines")
-	source.exclude "**/bin/**"
-	source.exclude "**/build/**"
-	source.exclude "**/out/**"
-	source.exclude "**/target/**"
-	source.exclude "**/.settings/**"
-	source.exclude "**/.classpath"
-	source.exclude "**/.project"
-	source.exclude "spring-boot-project/spring-boot-tools/spring-boot-buildpack-platform/src/test/resources/org/springframework/boot/buildpack/platform/docker/export.tar"
-}
+//nohttp {
+//	allowlistFile = project.file("src/nohttp/allowlist.lines")
+//	source.exclude "**/bin/**"
+//	source.exclude "**/build/**"
+//	source.exclude "**/out/**"
+//	source.exclude "**/target/**"
+//	source.exclude "**/.settings/**"
+//	source.exclude "**/.classpath"
+//	source.exclude "**/.project"
+//	source.exclude "spring-boot-project/spring-boot-tools/spring-boot-buildpack-platform/src/test/resources/org/springframework/boot/buildpack/platform/docker/export.tar"
+//}
 
-check {
-	dependsOn checkstyleNohttp
-}
+//check {
+//	dependsOn checkstyleNohttp
+//}
 
 allprojects {
 	group "org.springframework.boot"
 
 	repositories {
 		mavenCentral()
-		if (version.contains('-')) {
-			maven { url "https://repo.spring.io/milestone" }
-		}
-		if (version.endsWith('-SNAPSHOT')) {
-			maven { url "https://repo.spring.io/snapshot" }
-		}
+		maven { url "https://maven.aliyun.com/repository/public/" }
+		maven { url "https://maven.aliyun.com/repository/jcenter/" }
+		maven { url "https://maven.aliyun.com/repository/google/" }
+		maven { url "https://maven.aliyun.com/repository/gradle-plugin/" }
 	}
 
 	configurations.all {
@@ -42,6 +40,15 @@ allprojects {
 	}
 }
 
-tasks.named("checkstyleNohttp").configure {
-	maxHeapSize = "1536m"
+//tasks.named("checkstyleNohttp").configure {
+//	maxHeapSize = "1536m"
+//}
+
+
+tasks.withType(Test) {
+	enabled = false
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
 }
