@@ -38,6 +38,7 @@ public class YamlPropertySourceLoader implements PropertySourceLoader {
 
 	@Override
 	public String[] getFileExtensions() {
+		// 解析 yml 和 yaml 后缀的文件
 		return new String[] { "yml", "yaml" };
 	}
 
@@ -47,6 +48,7 @@ public class YamlPropertySourceLoader implements PropertySourceLoader {
 			throw new IllegalStateException(
 					"Attempted to load " + name + " but snakeyaml was not found on the classpath");
 		}
+		// 从 yml 或者 yaml 读取键值对
 		List<Map<String, Object>> loaded = new OriginTrackedYamlLoader(resource).load();
 		if (loaded.isEmpty()) {
 			return Collections.emptyList();

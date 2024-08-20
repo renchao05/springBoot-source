@@ -41,11 +41,13 @@ public class PropertiesPropertySourceLoader implements PropertySourceLoader {
 
 	@Override
 	public String[] getFileExtensions() {
+		// 解析properties 和 xml 后缀的文件
 		return new String[] { "properties", "xml" };
 	}
 
 	@Override
 	public List<PropertySource<?>> load(String name, Resource resource) throws IOException {
+		// 从 properties 或 xml 读取键值对
 		List<Map<String, ?>> properties = loadProperties(resource);
 		if (properties.isEmpty()) {
 			return Collections.emptyList();

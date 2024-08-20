@@ -97,6 +97,7 @@ public class EnvironmentPostProcessorApplicationListener implements SmartApplica
 	private void onApplicationEnvironmentPreparedEvent(ApplicationEnvironmentPreparedEvent event) {
 		ConfigurableEnvironment environment = event.getEnvironment();
 		SpringApplication application = event.getSpringApplication();
+		// 调用环境后处理器 EnvironmentPostProcessor
 		for (EnvironmentPostProcessor postProcessor : getEnvironmentPostProcessors(application.getResourceLoader(),
 				event.getBootstrapContext())) {
 			postProcessor.postProcessEnvironment(environment, application);
@@ -115,6 +116,7 @@ public class EnvironmentPostProcessorApplicationListener implements SmartApplica
 		this.deferredLogs.switchOverAll();
 	}
 
+	// 从META-INF/spring.factories获取环境后处理器 EnvironmentPostProcessor
 	List<EnvironmentPostProcessor> getEnvironmentPostProcessors(ResourceLoader resourceLoader,
 			ConfigurableBootstrapContext bootstrapContext) {
 		ClassLoader classLoader = (resourceLoader != null) ? resourceLoader.getClassLoader() : null;

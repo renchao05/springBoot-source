@@ -85,6 +85,7 @@ public class StandardConfigDataLocationResolver
 	 */
 	public StandardConfigDataLocationResolver(Log logger, Binder binder, ResourceLoader resourceLoader) {
 		this.logger = logger;
+		// 从spring.factories文件获取 PropertySourceLoader
 		this.propertySourceLoaders = SpringFactoriesLoader.loadFactories(PropertySourceLoader.class,
 				getClass().getClassLoader());
 		this.configNames = getConfigNames(binder);

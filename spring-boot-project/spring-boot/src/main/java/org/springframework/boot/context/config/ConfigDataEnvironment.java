@@ -145,10 +145,12 @@ class ConfigDataEnvironment {
 			.orElse(ConfigDataNotFoundAction.FAIL);
 		this.bootstrapContext = bootstrapContext;
 		this.environment = environment;
+		// 从spring.factories文件获取 ConfigDataLocationResolver
 		this.resolvers = createConfigDataLocationResolvers(logFactory, bootstrapContext, binder, resourceLoader);
 		this.additionalProfiles = additionalProfiles;
 		this.environmentUpdateListener = (environmentUpdateListener != null) ? environmentUpdateListener
 				: ConfigDataEnvironmentUpdateListener.NONE;
+		// 从spring.factories文件获取 ConfigDataLoader
 		this.loaders = new ConfigDataLoaders(logFactory, bootstrapContext, resourceLoader.getClassLoader());
 		this.contributors = createContributors(binder);
 	}

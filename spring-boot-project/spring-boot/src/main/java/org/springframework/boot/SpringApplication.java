@@ -366,7 +366,9 @@ public class SpringApplication {
 		configureEnvironment(environment, applicationArguments.getSourceArgs());
 		// 处理各种不规范命名风格，如下划线 - _
 		ConfigurationPropertySources.attach(environment);
-		// 发布环境准备完成事件，配置文件也会在这里完成读取
+		// 发布环境准备事件，配置文件也会在这里完成读取
+		// SpringBoot2.4之前，由ConfigFileApplicationListener处理application.properties和application.yml
+		// SpringBoot2.4开始，ConfigFileApplicationListener替换为ConfigDataEnvironmentPostProcessor
 		listeners.environmentPrepared(bootstrapContext, environment);
 		DefaultPropertiesPropertySource.moveToEnd(environment);
 		Assert.state(!environment.containsProperty("spring.main.environment-prefix"),
