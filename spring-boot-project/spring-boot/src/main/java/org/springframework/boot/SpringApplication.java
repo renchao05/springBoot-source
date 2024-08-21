@@ -447,6 +447,8 @@ public class SpringApplication {
 
 	private SpringApplicationRunListeners getRunListeners(String[] args) {
 		Class<?>[] types = new Class<?>[] { SpringApplication.class, String[].class };
+		// 从spring.factories获取SpringApplicationRunListener
+		// 就一个 EventPublishingRunListener 内部组合了SimpleApplicationEventMulticaster
 		return new SpringApplicationRunListeners(logger,
 				getSpringFactoriesInstances(SpringApplicationRunListener.class, types, this, args),
 				this.applicationStartup);
