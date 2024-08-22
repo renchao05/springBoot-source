@@ -260,7 +260,7 @@ public class SpringApplication {
 	public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySources) {
 		this.resourceLoader = resourceLoader;
 		Assert.notNull(primarySources, "PrimarySources must not be null");
-		// 保存主配置类信息
+		// 保存主配置类信息，在容器准备阶段会将其BeanDefinition注册到容器中
 		this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
 		// 推导web应用程序类型
 		this.webApplicationType = WebApplicationType.deduceFromClasspath();
@@ -429,6 +429,7 @@ public class SpringApplication {
 		// 加载各种 bean 源
 		Set<Object> sources = getAllSources();
 		Assert.notEmpty(sources, "Sources must not be empty");
+		// 将源的 BeanDefinition 注册到容器中，一般是都是主启动类
 		load(context, sources.toArray(new Object[0]));
 		listeners.contextLoaded(context);
 	}
@@ -698,6 +699,7 @@ public class SpringApplication {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Loading source " + StringUtils.arrayToCommaDelimitedString(sources));
 		}
+		// 创建Bean定义加载器，将源的BeanDefinition注册到容器中
 		BeanDefinitionLoader loader = createBeanDefinitionLoader(getBeanDefinitionRegistry(context), sources);
 		if (this.beanNameGenerator != null) {
 			loader.setBeanNameGenerator(this.beanNameGenerator);
