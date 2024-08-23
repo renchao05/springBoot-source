@@ -80,7 +80,11 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
+// 记录启动类所在包为基础包，通过 BasePackagesBeanDefinition 将这些信息保存在容器中，主要提供给自动配置类使用
 @AutoConfigurationPackage
+// 导入自动配置类
+// META-INF/spring.factories -> EnableAutoConfiguration
+// META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
 @Import(AutoConfigurationImportSelector.class)
 public @interface EnableAutoConfiguration {
 

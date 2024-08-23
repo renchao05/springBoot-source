@@ -133,6 +133,7 @@ public abstract class AutoConfigurationPackages {
 				packageNames.add(basePackageClass.getPackage().getName());
 			}
 			if (packageNames.isEmpty()) {
+				// 正常情况下都会进到这里，在这里获取主启动类所在包
 				packageNames.add(ClassUtils.getPackageName(metadata.getClassName()));
 			}
 			this.packageNames = Collections.unmodifiableList(packageNames);
